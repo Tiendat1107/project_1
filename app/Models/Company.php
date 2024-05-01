@@ -13,4 +13,8 @@ class Company extends Model
     protected $fillable = [
         'code', 'name', 'address',
     ];
+    public function departments()
+    {
+        return $this->hasMany(Department::class, 'company_id', 'id');
+    }
 }

@@ -4,15 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Repositories\Company\CompanyRepositoryInterface;
+use App\Repositories\Department\DepartmentRepositoryInterface;
 
 
 class CompanyController extends Controller
 {
     protected $companyRepository;
 
-    public function __construct(CompanyRepositoryInterface $companyRepository)
+    protected $departmentRepository;
+
+
+    public function __construct(CompanyRepositoryInterface $companyRepository, DepartmentRepositoryInterface $departmentRepository)
     {
         $this->companyRepository = $companyRepository;
+
+        $this->departmentRepository = $departmentRepository;
     }
 
     public function index()
@@ -51,5 +57,11 @@ class CompanyController extends Controller
     {
         $this->companyRepository->delete($id);
         return redirect()->route('company.index');
+    }
+    public function depart_company($companyId)
+    {
+        $depart_company = $this->companyRepository->depart_company($companyId);
+        //dd($depart_company);
+        return view('company.depart_company', compact('depart_company'));
     }
 }

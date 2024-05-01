@@ -314,6 +314,63 @@
         <script src="{{ asset('public/plugins/apexchart/chart-data.js') }}"></script>
 
         <script src="{{ asset('public/js/script.js') }}"></script>
+          {{-- Get person in project --}}
+        <script>
+        $(document).ready(function() {
+            $('#company').change(function() {
+                var companyId = $(this).val();
+                if (companyId) {
+                    $.ajax({
+                        url: '{{ url('/get-person/') }}/' + companyId,
+                        type: 'GET',
+                        success: function(response) {
+                            var options = '';
+                            $.each(response, function(index, person) {
+                                options += '<option value="' + person.id + '">' + person.full_name + '</option>';
+                            });
+                            $('#person').html(options);
+                        }
+                    });
+                } else {
+                    $('#person').html('<option value="">Select Company First</option>');
+                }
+            });
+
+            $('#person').change(function() {
+                var selectedPersons = $(this).val();
+                console.log("Selected Persons:", selectedPersons);
+            });
+        });
+        </script>
+
+          {{-- Get person in task --}}
+          <script>
+            $(document).ready(function() {
+                $('#project').change(function() {
+                    var projectId = $(this).val();
+                    if (projectId) {
+                        $.ajax({
+                            url: '{{ url('/get-person-in-task/') }}/' + projectId,
+                            type: 'GET',
+                            success: function(response) {
+                                var options = '';
+                                $.each(response, function(index, person) {
+                                    options += '<option value="' + person.id + '">' + person.full_name + '</option>';
+                                });
+                                $('#person').html(options);
+                            }
+                        });
+                    } else {
+                        $('#person').html('<option value="">Select Project First</option>');
+                    }
+                });
+    
+                $('#person').change(function() {
+                    var selectedPersons = $(this).val();
+                    console.log("Selected Persons:", selectedPersons);
+                });
+            });
+            </script>
 </body>
 
 </html>

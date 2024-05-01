@@ -53,6 +53,7 @@
                                 <td>
                                     <a class="me-3" href="{{ route('user.role', $list->user->id) }}">
                                         <img src="{{asset('public/img/icons/eye.svg')}}" alt="Eye">
+                                    </a>
                                     <a class="me-3" href="{{ route('person.edit', $list->id) }}">
                                         <img src="{{ asset('public/img/icons/edit.svg') }}" alt="Edit">
                                     </a>
